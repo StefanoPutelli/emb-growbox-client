@@ -2,10 +2,10 @@ import { useState } from "react";
 
 import felice from "./img/felice.png";
 import triste from "./img/triste.png";
-import sole from "./img/sole.jpg";
 
 import Temp from "./comp/temp";
 import SimpleDialog from "./comp/slider";
+import Sole from "./comp/sun";
 
 function App() {
 
@@ -14,10 +14,9 @@ function App() {
   const [mood, setMood] = useState(1);
   const [viewXY, setViewXY] = useState(window.innerWidth > window.innerHeight);
   const [open, setOpen] = useState(false);
-  const [light, setLight] = useState(0);
+  const [light, setLight] = useState(50);
 
   const handleClose = (value) => {
-    console.log(value)
     setLight(value);
     setOpen(false);
   };
@@ -59,7 +58,7 @@ function App() {
       />
       <div className="h-screen w-screen flex justify-center align-middle">
         <div className={viewXY ? boxStyle + "w-[100vh] h-[100vh]" : boxStyle + "w-[100vw] h-[100vw]"}>
-          <img id="sole" className="absolute top-0 left-0 w-[30%] mt-10 ml-2 cursor-pointer" style={getSunSize()} onClick={sunClicked} src={sole} alt="sole" />
+          <Sole onClick_={sunClicked} style_={getSunSize()}/>
           <div className="mt-[50%] w-[30%]">
             <img src={mood ? felice : triste} alt="felice" onClick={() => {
               setMood(!mood);
