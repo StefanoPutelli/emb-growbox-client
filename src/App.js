@@ -6,6 +6,7 @@ import triste from "./img/triste.png";
 import Temp from "./comp/temp";
 import SimpleDialog from "./comp/slider";
 import Sole from "./comp/sun";
+import Cloud from "./comp/cloud";
 
 function App() {
 
@@ -56,13 +57,16 @@ function App() {
         open={open}
         onClose={handleClose}
       />
-      <div className="h-screen w-screen flex justify-center align-middle">
-        <div className={viewXY ? boxStyle + "w-[100vh] h-[100vh]" : boxStyle + "w-[100vw] h-[100vw]"}>
-          <Sole onClick_={sunClicked} style_={getSunSize()}/>
-          <div className="mt-[50%] w-[30%]">
-            <img src={mood ? felice : triste} alt="felice" onClick={() => {
-              setMood(!mood);
-            }} />
+      <div className="landing">
+        <div className="h-screen w-screen flex justify-center align-middle">
+          <div className={viewXY ? boxStyle + "w-[100vh] h-[100vh]" : boxStyle + "w-[100vw] h-[100vw]"}>
+            <Sole onClick_={sunClicked} style_={getSunSize()} />
+            <Cloud />
+            <div className="mt-[50%] w-[30%]">
+              <img src={mood ? felice : triste} alt="felice" onClick={() => {
+                setMood(!mood);
+              }} />
+            </div>
           </div>
         </div>
       </div>
