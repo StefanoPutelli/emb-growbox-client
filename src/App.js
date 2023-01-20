@@ -18,9 +18,7 @@ function App() {
   const [viewXY, setViewXY] = useState(window.innerWidth > window.innerHeight);
 
   const [cloudMoving, setCloudMoving] = useState(0)
-
-  const [tempHeight, setTempHeight] = useState(100)
-
+  
   window.addEventListener("resize", () => {
     setViewXY(getViewXY());
   });
@@ -63,7 +61,7 @@ function App() {
                 setMood(!mood);
               }} />
             </div>
-            <div className="absolute bottom-[50%] right-[7%] translate-y-[50%]">
+            <div className="absolute bottom-[50%] right-[2%] translate-y-[50%]">
               <Thermometer
                 theme="light"
                 value="18"

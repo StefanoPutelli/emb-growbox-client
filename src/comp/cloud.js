@@ -2,6 +2,13 @@ import cloud_face from "../img/cloud_face.png";
 
 export default function Cloud(props) {
 
+    window.addEventListener("load", () => {
+        document.getElementById("cloud").style.height = document.getElementById("cloud").getBoundingClientRect().width / 3 + "px"
+    })
+    window.addEventListener("resize", () => {
+        document.getElementById("cloud").style.height = document.getElementById("cloud").getBoundingClientRect().width / 3 + "px"
+    })
+
     return (
             <div id="cloud">
                 <img className="block m-auto w-[30%] "src={cloud_face} alt="cloud face" />

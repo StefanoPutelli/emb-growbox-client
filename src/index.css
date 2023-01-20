@@ -233,7 +233,7 @@
 input[type=range] {
   width: 40vh;
   position: absolute;
-  margin-left: 15%;
+  margin-left: 10%;
   top: 70%;
   background-color: transparent;
   -webkit-appearance: none;
