@@ -1,6 +1,7 @@
 import cloud_face from "../img/cloud_face.png";
 
 export default function Cloud(props) {
+
     return (
             <div id="cloud">
                 <img className="block m-auto w-[30%] "src={cloud_face} alt="cloud face" />

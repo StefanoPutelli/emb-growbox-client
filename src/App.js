@@ -26,11 +26,15 @@ function App() {
   });
 
   function getViewXY() {
-    return (window.innerWidth > window.innerHeight)
+    return (window.innerWidth > window.innerHeight - window.innerHeight / 10)
   }
 
+  window.addEventListener("load",() => {
+    document.getElementsByClassName("thermometer")[0].style.height =document.getElementById("boxona").getBoundingClientRect().height/4 + "px"
+  })
+
   window.addEventListener("resize", () => {
-    document.getElementsByClassName("thermometer")[0].style.height = document.getElementById("boxona").clientHeight/3 + "px"
+    document.getElementsByClassName("thermometer")[0].style.height = document.getElementById("boxona").getBoundingClientRect().height/4 + "px"
   })
 
   //add gauge display 
@@ -39,7 +43,7 @@ function App() {
     <div className="App">
       <div id="landing" className="landing">
         <div className="h-screen w-screen flex justify-center align-middle">
-          <div id="boxona"className={viewXY ? boxStyle + "w-[100vh] h-[100vh]" : boxStyle + "w-[100vw] h-[100vw]"}>
+          <div id="boxona"className={viewXY ? boxStyle + "w-[100vh] h-[100vh]" : boxStyle + "w-[100vw] h-[90vh] mt-[10vh] mb-[10vh]"}>
             <Sole />
             <div className="cursor-pointer" onClick={() => {
               if (cloudMoving) return
@@ -54,19 +58,18 @@ function App() {
             }}>
               <Cloud />
             </div>
-            <div className="mt-[50%] w-[30%]">
+            <div className={getViewXY() ? "absolute w-[40%] bottom-[10%]" : "absolute w-[40%] bottom-[20%]"}>
               <img src={mood ? felice : triste} alt="felice" onClick={() => {
                 setMood(!mood);
               }} />
             </div>
-            <div className="absolute bottom-[20%] right-[7%]">
+            <div className="absolute bottom-[50%] right-[7%] translate-y-[50%]">
               <Thermometer
                 theme="light"
                 value="18"
                 max="100"
-                steps="3"
                 format="°C"
-                size="large"
+                size="medium"
               />
             </div>
           </div>
