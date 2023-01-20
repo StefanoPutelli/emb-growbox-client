@@ -62,14 +62,28 @@
 	position: absolute;
   top: 0;
   right: 0;
-  margin-top: 50px;
+  margin-top: 20px;
   margin-right: 20px;
 	-webkit-border-radius: 50px;
 	-moz-border-radius: 50px;
 	border-radius: 50px;
   -webkit-animation: mover 3.5s infinite  alternate;
-  animation: mover 3.5s infinite  alternate;
-  z-index: 9999;
+  animation: mover 2.5s infinite  alternate;
+}
+
+#cloud.cloud_move{
+  animation: cloud_move 3.5s 2 alternate
+}
+
+@keyframes cloud_move{
+  0% {
+    right: 0px;
+    top: 0px
+  }
+  100%{
+    right: 25%;
+    top: 25%;
+  }
 }
 
 #cloud:after, div#cloud:before {
@@ -206,6 +220,6 @@
 
 @keyframes mover {
     0% { transform: translateY(1rem); }
-    100% { transform: translateY(2.6rem); }
+    100% { transform: translateY(2rem); }
 }
 	
