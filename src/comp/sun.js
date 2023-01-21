@@ -1,7 +1,6 @@
 import sole_raggi from "../img/sole_reggi.png";
 import sole_centro from "../img/sole_centro.png";
 import { useState, useEffect } from "react"
-import { Box } from "@mui/system";
 
 // stop propagation of scroll event when touching slider
 
@@ -24,6 +23,7 @@ export default function Sun(props) {
         const cb = (event) => {
             if (touching) {
                 event.preventDefault()
+                event.stopPropagation()
             }
         }
         window.addEventListener("scroll", cb)

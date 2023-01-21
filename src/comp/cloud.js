@@ -1,13 +1,28 @@
+import { useEffect, useState } from "react";
 import cloud_face from "../img/cloud_face.png";
 
 export default function Cloud(props) {
 
-    window.addEventListener("load", () => {
-        document.getElementById("cloud").style.height = document.getElementById("cloud").getBoundingClientRect().width / 3 + "px"
-    })
-    window.addEventListener("resize", () => {
-        document.getElementById("cloud").style.height = document.getElementById("cloud").getBoundingClientRect().width / 3 + "px"
-    })
+    const [height, setHeight] = useState(1)
+
+
+    //fix clouds height
+
+    useEffect (() => {
+        const cb = () => {window.addEventListener("load", () => {
+            setHeight(document.getElementById("cloud").getBoundingClientRect().width / 3)
+            document.getElementById("cloud").style.height = height + "px"
+        })}
+        const cb2 = () => {window.addEventListener("resize", () => {
+            setHeight(document.getElementById("cloud").getBoundingClientRect().width / 3)
+            document.getElementById("cloud").style.height = height + "px"
+        })}
+
+        return () => {
+            window.removeEventListener("load", cb)
+            window.removeEventListener("resize", cb2)
+        }
+    }, [height])
 
     return (
             <div id="cloud">
