@@ -20,6 +20,21 @@ const fetchLastData = async () => {
   }
 };
 
+export const updatePeronslDetails = async (peronalDetails) => {
+  try {
+    const result = await axios.put(
+      fireBaseUrl + "/peronalDetails.json",
+      peronalDetails
+    );
+    if (result.status === 200) {
+      return true;
+    }
+    return false;
+  } catch (error) {
+    return false;
+  }
+};
+
 export const fetchDataFromLastWeek = async (lastWeekDate) => {
   const { data } = await axios.get(fireBaseUrl + "/sensorsData.json", {
     params: {

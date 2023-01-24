@@ -28,26 +28,38 @@ function getDateBeforeXDays(day) {
 function getSensorDataDividedByWeek(data) {
   const dataByWeek = Object.assign(
     {},
-    ...relevantDates.map((x) => ({ [x]: 0 }))
+    ...relevantDates.map((x) => ({
+      [x]: data.filter((sensorData) => {
+        return areEqualsDates(x, sensorData.date);
+      }),
+    }))
   );
-  for (const item of data) {
-    const key = item.date;
-    key.setHours(0, 0, 0, 0);
-    if (dataByWeek[key] === 0) {
-      dataByWeek[key] = item;
-    }
-  }
-  for (const key in dataByWeek) {
-    if (dataByWeek[key] === 0) {
-      dataByWeek[key] = { temperature: 0, soilMoisture: 0 };
-    }
+  const dataByWeekAverge = {};
+  for (const item of relevantDates) {
+    dataByWeekAverge[item] = {
+      temperature: getAverge(dataByWeek[item].map((x) => x.temperature)),
+      soilMoisture: getAverge(dataByWeek[item].map((x) => x.soilMoisture)),
+    };
   }
   const dataByWeekValues = [];
-  for (const key in dataByWeek) {
-    dataByWeekValues.push(dataByWeek[key]);
+  for (const key in dataByWeekAverge) {
+    dataByWeekValues.push(dataByWeekAverge[key]);
   }
   return dataByWeekValues;
 }
+
+function getAverge(arr) {
+  return arr.reduce((a, b) => a + b, 0) / arr.length;
+}
+
+function areEqualsDates(date1, date2) {
+  return (
+    date1.getFullYear() === date2.getFullYear() &&
+    date1.getMonth() === date2.getMonth() &&
+    date1.getDay() === date2.getDay()
+  );
+}
+
 export default function Graphs() {
   const [sensorData, setSensorData] = useState([]);
   useEffect(() => {
@@ -73,6 +85,7 @@ export default function Graphs() {
           graphData={sensorData.map((x) => x.soilMoisture)}
           title="Soil Moisture Data From Last Week"
           color={"green"}
+          scaleY={{ min: 0, max: 100 }}
         />
       </view>
       <view className="data-item">
@@ -82,6 +95,7 @@ export default function Graphs() {
           graphData={sensorData.map((x) => x.temperature)}
           title="Temperature Data From Last Week"
           color={"rgb(255, 99, 132)"}
+          scaleY={{ min: 0, max: 50 }}
         />
       </view>
     </div>

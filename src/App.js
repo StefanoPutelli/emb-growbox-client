@@ -5,6 +5,7 @@ import Graphs from "./screens/Graphs";
 import { useEffect, useState } from "react";
 import fetchLastData from "./util/http";
 import LinearProgress from "@mui/material/LinearProgress";
+import Settings from "./screens/Settings";
 
 function App() {
   const [sensorData, setSensorData] = useState();
@@ -25,6 +26,7 @@ function App() {
       <Routes>
         <Route path="/" exact element={<Home sensorData={sensorData}></Home>} />
         <Route path="/Graphs" exact element={<Graphs />} />
+        <Route path="/Settings" exact element={<Settings />} />
       </Routes>
     </Router>
   );

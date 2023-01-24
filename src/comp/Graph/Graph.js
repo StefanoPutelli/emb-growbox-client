@@ -21,7 +21,7 @@ ChartJS.register(
   Legend
 );
 
-export function Graph({ graphData, labels, label, title, color }) {
+export function Graph({ graphData, labels, label, title, color, scaleY }) {
   const data = {
     labels: labels,
     datasets: [
@@ -42,6 +42,12 @@ export function Graph({ graphData, labels, label, title, color }) {
       title: {
         display: true,
         text: title,
+      },
+    },
+    scales: {
+      y: {
+        max: scaleY.max,
+        min: scaleY.min,
       },
     },
   };

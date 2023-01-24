@@ -33,8 +33,10 @@ function Home({ sensorData }) {
           <Gauge
             title="Humidity"
             precent={sensorData.humidity / 100}
-            nrOfLevels={5}
-            value={sensorData.humidity}
+            nrOfLevels={4}
+            value={sensorData.humidity+"%"}
+            colors={["red", "yellow", "green", "red"]}
+            arcsLength={[0.4, 0.2, 0.2, 0.4]}
           />
         </view>
 
@@ -46,7 +48,9 @@ function Home({ sensorData }) {
             title="Soil Moisture"
             precent={sensorData.soilMoisture / 100}
             nrOfLevels={5}
-            value={sensorData.soilMoisture}
+            value={sensorData.soilMoisture+'%'}
+            colors={["red", "yellow", "green", "yellow", "red"]}
+            arcsLength={[0.2, 0.1, 0.2, 0.1, 0.4]}
           />
         </view>
       </view>
