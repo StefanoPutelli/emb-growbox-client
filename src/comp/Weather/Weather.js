@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import fetchWeather from "./fetchWeather";
 import "./Weather.css";
+import CircularProgress from "@mui/material/CircularProgress";
+import Box from "@mui/material/Box";
 
 function Weather() {
   const [weather, setWeather] = useState();
@@ -11,8 +13,13 @@ function Weather() {
     }
     fetchData();
   }, []);
+
   if (!weather) {
-    return <div>loading...</div>;
+    return (
+      <Box sx={{ display: "flex", justifyContent: "center" }}>
+        <CircularProgress />
+      </Box>
+    );
   }
   return (
     <view className="weather-container">

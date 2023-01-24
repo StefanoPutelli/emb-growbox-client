@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import Graph from "../comp/Graph/Graph";
 import { fetchDataFromLastWeek } from "../util/http";
+import LinearProgress from "@mui/material/LinearProgress";
 
 const relevantDates = [
   getDateBeforeXDays(6),
@@ -59,8 +60,9 @@ export default function Graphs() {
     }
     fetchData();
   }, []);
+
   if (sensorData.length === 0) {
-    return <text>Loading</text>;
+    return <LinearProgress />;
   }
   return (
     <div className="data-row">

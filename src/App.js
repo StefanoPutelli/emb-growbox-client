@@ -4,6 +4,8 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Graphs from "./screens/Graphs";
 import { useEffect, useState } from "react";
 import fetchLastData from "./util/http";
+import LinearProgress from "@mui/material/LinearProgress";
+
 function App() {
   const [sensorData, setSensorData] = useState();
   useEffect(() => {
@@ -13,8 +15,9 @@ function App() {
     }
     fetchSensorData();
   }, []);
+  
   if (!sensorData) {
-    return <text>Loading...</text>;
+    return <LinearProgress />;
   }
   return (
     <Router>

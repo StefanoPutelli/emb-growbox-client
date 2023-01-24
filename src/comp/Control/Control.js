@@ -3,7 +3,7 @@ import Slider from "@mui/material/Slider";
 import "./Control.css";
 import Button from "@mui/material/Button";
 import Switch from "@mui/material/Switch";
-import { FormControlLabel } from "@mui/material";
+import { CircularProgress, FormControlLabel } from "@mui/material";
 import { MdOutlineLightMode } from "react-icons/md";
 import { GiWaterTank } from "react-icons/gi";
 import { updateControlSettings } from "../../util/http";
@@ -30,6 +30,7 @@ export default function Control({ lightPower, irrigation }) {
   const [openToast, setOpenToast] = useState(false);
   const [message, setMessage] = useState("");
   const [severity, setSeverity] = useState("");
+  const [loading, setLoading] = useState(false);
   function sliderValueText(value) {
     return `${value}V`;
   }
@@ -45,6 +46,7 @@ export default function Control({ lightPower, irrigation }) {
   };
 
   async function onClickHandler() {
+    setLoading(true);
     const data = { lightPower: sliderValue, irrigation: switchValue ? 1 : 0 };
     const result = await updateControlSettings(data);
     if (!result) {
@@ -55,8 +57,23 @@ export default function Control({ lightPower, irrigation }) {
       setMessage("Successfully saved changes");
     }
     setOpenToast(true);
+    setLoading(false);
   }
 
+  let buttonContent = (
+    <view className="control-button">
+      <Button onClick={onClickHandler} variant="contained">
+        Apply Changes
+      </Button>
+    </view>
+  );
+  if (loading) {
+    buttonContent = (
+      <view className="control-button">
+        <CircularProgress />
+      </view>
+    );
+  }
   const switchLabel = switchValue ? "ON" : "AUTOMATIC";
   return (
     <>
@@ -79,6 +96,7 @@ export default function Control({ lightPower, irrigation }) {
               step={0.1}
               onChangeCommitted={handleSliderChange}
               value={sliderValue}
+              disabled={loading}
             />
           </view>
         </view>
@@ -95,6 +113,7 @@ export default function Control({ lightPower, irrigation }) {
                     onChange={handleSwitchChange}
                     checked={switchValue}
                     size="medium"
+                    disabled={loading}
                   />
                 }
                 label={switchLabel}
@@ -103,11 +122,8 @@ export default function Control({ lightPower, irrigation }) {
           </view>
         </view>
       </div>
-      <view className="control-button">
-        <Button onClick={onClickHandler} variant="contained">
-          Apply Changes
-        </Button>
-      </view>
+      {buttonContent}
+
       <Snackbar
         open={openToast}
         autoHideDuration={3000}
