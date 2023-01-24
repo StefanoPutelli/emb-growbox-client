@@ -10,6 +10,12 @@ module.exports = {
     },
     plugins: [
       require('tailwind-clip-path'),
-    ]
+    ],
+    rules: [
+      {
+        test: /\.css$/i,
+        use: ["style-loader", "css-loader"],
+      },
+    ],
   }
 }
