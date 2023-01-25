@@ -4,7 +4,6 @@ import SensorData from "../model/sensorData";
 const fireBaseUrl =
   "https://emb-grow-box-default-rtdb.europe-west1.firebasedatabase.app";
 
-const getChangeControllersUrl = (ipAddress) => `http://${ipAddress}/control`;
 
 const fetchLastData = async () => {
   const { data } = await axios.get(fireBaseUrl + "/sensorsData.json", {
@@ -53,11 +52,15 @@ export const fetchDataFromLastWeek = async (lastWeekDate) => {
 export default fetchLastData;
 
 export const updateControlSettings = async (controlSettings) => {
-  const { data } = await axios.get(fireBaseUrl + "/ipAddress.json");
-  const url = getChangeControllersUrl(data);
   try {
-    await axios.post(url, controlSettings);
-    return true;
+    const response = await axios.put(
+      fireBaseUrl + "/controls.json",
+      controlSettings
+    );
+    if (response.status === 200) {
+      return true;
+    }
+    return false;
   } catch (error) {
     return false;
   }

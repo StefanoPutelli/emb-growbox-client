@@ -16,11 +16,11 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 const marks = [
   {
     value: 0,
-    label: "0V",
+    label: "0%",
   },
   {
-    value: 5,
-    label: "5V",
+    value: 100,
+    label: "100%",
   },
 ];
 
@@ -32,7 +32,7 @@ export default function Control({ lightPower, irrigation }) {
   const [severity, setSeverity] = useState("");
   const [loading, setLoading] = useState(false);
   function sliderValueText(value) {
-    return `${value}V`;
+    return `${value}%`;
   }
 
   const handleSliderChange = (event, newValue) => {
@@ -90,10 +90,9 @@ export default function Control({ lightPower, irrigation }) {
               valueLabelDisplay="auto"
               valueLabelFormat={sliderValueText}
               min={0}
-              max={5}
+              max={100}
               getAriaValueText={sliderValueText}
               marks={marks}
-              step={0.1}
               onChangeCommitted={handleSliderChange}
               value={sliderValue}
               disabled={loading}

@@ -11,7 +11,7 @@ export default function Form() {
   const [peronalDetails, setPersonalDetails] = useState({
     firstName: "",
     lastName: "",
-    phoneNumber: "",
+    telegramId: "",
   });
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
@@ -36,7 +36,7 @@ export default function Form() {
     }
     setOpenToast(true);
     setLoading(false);
-    setPersonalDetails({ firstName: "", lastName: "", phoneNumber: "" });
+    setPersonalDetails({ firstName: "", lastName: "", telegramId: "" });
   }
   let buttonContent = (
     <view className="form-button">
@@ -81,11 +81,19 @@ export default function Form() {
         />
         <TextField
           id="outlined-phone"
-          label="Phone Number"
+          label="Telegram User Id"
+          helperText={
+            <a
+              href="https://bigone.zendesk.com/hc/en-us/articles/360008014894-How-to-get-the-Telegram-user-ID-"
+              target="_blank"
+            >
+              How to get telegram user id?
+            </a>
+          }
           variant="standard"
           required
-          value={peronalDetails.phoneNumber}
-          onChange={handleChange.bind(this, "phoneNumber")}
+          value={peronalDetails.telegramId}
+          onChange={handleChange.bind(this, "telegramId")}
         />
         {buttonContent}
       </Box>
