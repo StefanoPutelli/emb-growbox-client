@@ -38,7 +38,7 @@ export default function WaterTank({ waterTank }) {
         style={{ margin: "0 auto" }}
         width={radius * 2}
         height={radius * 2}
-        value={waterTank * 100}
+        value={waterTank}
         percent="%"
         textSize={0}
         riseAnimation
@@ -55,7 +55,7 @@ export default function WaterTank({ waterTank }) {
         }}
       />
       <div className="text-container">
-        <text className="value">{waterTank * 100}%</text>
+        <text className="value">{waterTank}%</text>
       </div>
     </div>
   );
