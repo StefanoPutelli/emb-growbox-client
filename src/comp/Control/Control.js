@@ -24,13 +24,15 @@ const marks = [
   },
 ];
 
-export default function Control({ lightPower, irrigation }) {
+export default function Control({ lightPower }) {
   const [sliderValue, setSliderValue] = useState(lightPower);
-  const [switchValue, setSwitchValue] = useState(irrigation);
+  const [switchValue, setSwitchValue] = useState(false);
   const [openToast, setOpenToast] = useState(false);
   const [message, setMessage] = useState("");
   const [severity, setSeverity] = useState("");
   const [loading, setLoading] = useState(false);
+  const [irrigationDisabled, setIrrigationDisabled] = useState(false);
+  let switchTimeout = null;
   function sliderValueText(value) {
     return `${value}%`;
   }
@@ -43,6 +45,15 @@ export default function Control({ lightPower, irrigation }) {
 
   const handleSwitchChange = (event) => {
     setSwitchValue(event.target.checked);
+  };
+
+  const irrigationTimeoutHandler = () => {
+    setIrrigationDisabled(false);
+    setSwitchValue(false);
+    setOpenToast(true);
+    setMessage("Finished watering the plant");
+    setSeverity("info");
+    clearTimeout(switchTimeout);
   };
 
   async function onClickHandler() {
@@ -60,13 +71,17 @@ export default function Control({ lightPower, irrigation }) {
       setSeverity("success");
       setMessage("Successfully saved changes");
     }
+    if (switchValue) {
+      switchTimeout = setTimeout(irrigationTimeoutHandler, 4000);
+      setIrrigationDisabled(true);
+    }
     setOpenToast(true);
     setLoading(false);
   }
 
   let buttonContent = (
     <view className="control-button">
-      <Button onClick={onClickHandler} variant="contained">
+      <Button onClick={onClickHandler} disabled={irrigationDisabled} variant="contained">
         Apply Changes
       </Button>
     </view>
@@ -99,7 +114,7 @@ export default function Control({ lightPower, irrigation }) {
               marks={marks}
               onChangeCommitted={handleSliderChange}
               value={sliderValue}
-              disabled={loading}
+              disabled={loading }
             />
           </view>
         </view>
