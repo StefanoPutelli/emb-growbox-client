@@ -22,7 +22,7 @@ const fetchLastData = async () => {
 export const updatePeronslDetails = async (peronalDetails) => {
   try {
     const result = await axios.put(
-      fireBaseUrl + "/peronalDetails.json",
+      fireBaseUrl + "/personalDetails.json",
       peronalDetails
     );
     if (result.status === 200) {

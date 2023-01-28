@@ -47,7 +47,11 @@ export default function Control({ lightPower, irrigation }) {
 
   async function onClickHandler() {
     setLoading(true);
-    const data = { lightPower: sliderValue, irrigation: switchValue ? 1 : 0 };
+    const data = {
+      lightPower: sliderValue,
+      irrigation: switchValue ? 1 : 0,
+      updateDate: Math.round(new Date().getTime() / 1000),
+    };
     const result = await updateControlSettings(data);
     if (!result) {
       setSeverity("error");

@@ -34,17 +34,29 @@ function getSensorDataDividedByWeek(data) {
       }),
     }))
   );
+
   const dataByWeekAverge = {};
   for (const item of relevantDates) {
     dataByWeekAverge[item] = {
-      temperature: getAverge(dataByWeek[item].map((x) => x.temperature)),
-      soilMoisture: getAverge(dataByWeek[item].map((x) => x.soilMoisture)),
+      temperature:
+        dataByWeek[item].length>0
+          ? getAverge(dataByWeek[item].map((x) => x.temperature))
+          : 0,
+      soilMoisture:
+        dataByWeek[item].length>0
+          ? getAverge(dataByWeek[item].map((x) => x.soilMoisture))
+          : 0,
     };
   }
   const dataByWeekValues = [];
   for (const key in dataByWeekAverge) {
-    dataByWeekValues.push(dataByWeekAverge[key]);
+    if (!dataByWeekAverge[key]) {
+      dataByWeekValues.push({ soilMoisture: 0, temperature: 0 });
+    } else {
+      dataByWeekValues.push(dataByWeekAverge[key]);
+    }
   }
+  console.log(dataByWeek);
   return dataByWeekValues;
 }
 
