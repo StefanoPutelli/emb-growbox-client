@@ -1,6 +1,7 @@
 class SensorData {
   constructor(data) {
     this.date = new Date(data.date * 1000);
+    this.date.setHours(this.date.getHours()-1);
     this.temperature = data.temperature;
     this.humidity = data.humidity;
     this.soilMoisture = data.soilMoisture ? data.soilMoisture : 0;
